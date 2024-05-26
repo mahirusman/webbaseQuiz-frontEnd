@@ -9,6 +9,7 @@ import Signup from "./signup/index"; // Assuming you have the Signup component
 import Login from "./login/index"; // Assuming you have the Login component
 import CreateQuestions from "./createQuestions"; // Assuming you have the Login component
 import CreateQuiz from "./createQuiz"; // Assuming you have the Login component
+import Quizlist from "./quizlist"; // Assuming you have the Login component
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
           path="/:quizId/question/:questionId"
           element={<CreateQuestions />}
         />
+        <Route path="/quiz/:quizId" element={<Quizlist />} />
       </Routes>
     </Router>
   );
