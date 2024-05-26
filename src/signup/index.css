@@ -1,0 +1,121 @@
+/* Ensure the container is centered and set a max-width for better layout */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 500px; /* Increased the max-width for a better layout */
+  margin: 0 auto; /* Center the container */
+  padding: 30px;
+  background-color: #f9f9f9;
+  border-radius: 40px; /* Changed to make the corners more rounded */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+/* Center and style the header */
+h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Ensure form elements are styled and fill the width of the container */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+/* Label styling */
+.form-group label {
+  margin-bottom: 5px;
+  color: #333;
+}
+
+/* Styling for input fields, select dropdown, and button to fill width */
+.form-group input,
+.form-group select,
+.submit-btn {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 16px;
+  margin-top: 5px;
+  width: 100%;
+}
+
+/* Ensure password input and icon are positioned correctly */
+.password-input {
+  position: relative;
+}
+
+/* Adjust padding to make space for the eye icon */
+.password-input input {
+  padding-right: 40px;
+}
+
+/* Style the eye icon */
+.eye-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #ccc;
+}
+
+/* Change color on hover */
+.eye-icon:hover {
+  color: #333;
+}
+
+/* Error message styling */
+.error-message {
+  color: #ff0000;
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+/* Style the submit button and add hover effect */
+.submit-btn {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s;
+  width: 100%; /* Ensure the button fills the width of the form */
+}
+
+.submit-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Style the login link */
+.login-link {
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+/* Style links in the login link */
+.login-link a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
+}
+
+/* Ensure dropdown fills the width */
+.role-dropdown {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 16px;
+  margin-top: 5px;
+  background-color: #fff;
+}
