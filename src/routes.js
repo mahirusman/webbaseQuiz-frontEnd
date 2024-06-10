@@ -10,6 +10,7 @@ import Login from "./login/index"; // Assuming you have the Login component
 import CreateQuestions from "./createQuestions"; // Assuming you have the Login component
 import CreateQuiz from "./createQuiz"; // Assuming you have the Login component
 import Quizlist from "./quizlist"; // Assuming you have the Login component
+import ListQuestions from "./listQuestions"; // Assuming you have the Login component
 
 const App = () => {
   return (
@@ -19,11 +20,10 @@ const App = () => {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/create-quiz" element={<CreateQuiz />} />
-        <Route
-          path="/:quizId/question/:questionId"
-          element={<CreateQuestions />}
-        />
-        <Route path="/quiz/:quizId" element={<Quizlist />} />
+        <Route path="/:quizId/question" element={<CreateQuestions />} />
+        <Route path="/:quizId/detail" element={<ListQuestions />} />
+
+        {/* <Route path="/quiz/:quizId" element={<Quizlist />} /> */}
       </Routes>
     </Router>
   );

@@ -29,7 +29,7 @@ const CreateQuiz = () => {
       });
       if (response.data.success) {
         toast.success("Quiz register successfully");
-        return navigate(`/${response?.data?.data._id}/question/${ObjectId()}`);
+        return navigate(`/${response?.data?.data._id}/question/`);
       }
     } catch (error) {
       console.error("Error fetching data:", error?.response?.data);

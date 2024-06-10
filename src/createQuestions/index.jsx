@@ -18,19 +18,20 @@ const CreateQuiz = () => {
   const navigate = useNavigate();
   const { questionId, quizId } = useParams();
   const [questionData, setQuestionData] = useState();
-  console.log("questionData", questionData);
+  console.log("questionData", questionData, "questionId", quizId);
 
   useEffect(() => {
-    if (questionId && quizId) {
-      axiosInstance
-        .get(`/question/${quizId}/${questionId}`)
-        .then((response) => {
-          if (response.data.success) {
-            setQuestionData(response.data);
-          }
-        });
+    if (quizId) {
+      axiosInstance.get(`/question/${quizId}`).then((response) => {
+        console.log("response", response);
+        if (response.data.success) {
+          setQuestionData({
+            questionCount: response?.data?.questions?.length ?? 0,
+          });
+        }
+      });
     }
-  }, [questionId, quizId]);
+  }, [quizId]);
 
   const getValidationSchema = (questionType) => {
     return Yup.object().shape({
@@ -62,9 +63,10 @@ const CreateQuiz = () => {
         quizId,
       });
       if (response.data.success) {
+        setQuestionData(response?.data?.question);
         toast.success("Question created successfully");
-
-        handleNextClick(resetForm);
+        resetForm();
+        // handleNextClick(resetForm);
       }
     } catch (error) {
       console.error("Error fetching data:", error?.response?.data);
@@ -76,8 +78,8 @@ const CreateQuiz = () => {
     navigate(`/${quizId}/question/${ObjectId()}`);
   };
 
-  const handleBackClick = () => {
-    navigate(`/${quizId}/question/${ObjectId()}`);
+  const handleBackClick = (resetForm) => {
+    resetForm();
   };
 
   // const handleNextClikc = () => {
@@ -92,9 +94,7 @@ const CreateQuiz = () => {
           <h1>Create Questions</h1>
           <p>
             Total Questions Created:{" "}
-            {!questionData?.question && !questionData?.quiz
-              ? "0"
-              : questionData?.quiz?.questionCount}
+            {!questionData ? "0" : questionData?.questionCount}
           </p>
         </div>
         <Formik
@@ -191,7 +191,7 @@ const CreateQuiz = () => {
                   disabled={isSubmitting}
                   className="btn btn-primary"
                 >
-                  Save QUestion
+                  Save Question
                 </button>
                 <button
                   type="button"
@@ -199,7 +199,7 @@ const CreateQuiz = () => {
                   onClick={() => handleNextClick(resetForm)}
                   className="btn btn-secondary"
                 >
-                  Next
+                  Previow
                 </button>
                 <button
                   type="button"
@@ -207,7 +207,7 @@ const CreateQuiz = () => {
                   onClick={() => handleBackClick(resetForm)}
                   className="btn btn-secondary"
                 >
-                  Back
+                  Clear
                 </button>
               </div>
             </Form>
