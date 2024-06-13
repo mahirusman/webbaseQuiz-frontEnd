@@ -3,17 +3,19 @@ import axios from "axios";
 import "./index.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axiosInstance from "../axiosInstance";
 
-const QuizQuestion = ({ questionData, onEdit }) => {
+const QuestionListOfSpecificQuiz = ({ questionData, onEdit }) => {
   return (
     <div className="quiz-question">
-      <FontAwesomeIcon
-        icon={faEdit}
-        className="edit-icon"
-        onClick={() => onEdit(questionData)}
-      />
+      <div className="edit-icon-container">
+        <FontAwesomeIcon
+          icon={faEdit}
+          className="edit-icon"
+          onClick={() => onEdit(questionData)}
+        />
+      </div>
       <div className="quiz-question-content">
         <h2>{questionData.question}</h2>
         <ul>
@@ -59,7 +61,7 @@ const Quiz = () => {
         <span>Question Details</span>
       </div>
       {questions.map((questionData, index) => (
-        <QuizQuestion
+        <QuestionListOfSpecificQuiz
           key={index}
           questionData={questionData}
           onEdit={handleEdit}
