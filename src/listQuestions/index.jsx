@@ -1,26 +1,21 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./index.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit } from "@fortawesome/free-solid-svg-icons";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axiosInstance from "../axiosInstance";
+const array = ["A", "B", "C", "D"];
 
-const QuestionListOfSpecificQuiz = ({ questionData, onEdit }) => {
+const QuestionListOfSpecificQuiz = ({ index, questionData }) => {
   return (
     <div className="quiz-question">
-      <div className="edit-icon-container">
-        <FontAwesomeIcon
-          icon={faEdit}
-          className="edit-icon"
-          onClick={() => onEdit(questionData)}
-        />
-      </div>
+      Question : {index + 1}
       <div className="quiz-question-content">
         <h2>{questionData.question}</h2>
         <ul>
           {questionData.options.map((option, index) => (
-            <li key={index}>{option}</li>
+            <li key={index}>
+              Option {array[index]}: {option}
+            </li>
           ))}
         </ul>
         <p>Correct Answer: {questionData.correctAnswer}</p>
@@ -32,7 +27,9 @@ const QuestionListOfSpecificQuiz = ({ questionData, onEdit }) => {
 
 const Quiz = () => {
   const [questions, setQuestions] = useState([]);
+  const [quizDetails, setQuizDetails] = useState({});
   const { quizId } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -40,6 +37,9 @@ const Quiz = () => {
         const response = await axiosInstance.get(`/question/${quizId}`);
         if (response.data.success) {
           setQuestions(response.data.questions);
+          if (response.data.questions.length > 0) {
+            setQuizDetails(response.data.questions[0].quizId);
+          }
         }
       } catch (error) {
         console.error("Error fetching quiz questions:", error);
@@ -49,24 +49,34 @@ const Quiz = () => {
     fetchQuestions();
   }, [quizId]);
 
-  const handleEdit = (questionData) => {
-    // Implement the edit functionality here
-    console.log("Edit question:", questionData);
-  };
-
   return (
     <div className="quiz-container">
+      <div className="quiz-details">
+        <h1>Quiz Name: {quizDetails.quizName}</h1>
+        <p>Duration: {quizDetails.duration} minutes</p>
+        <p>Open Date: {new Date(quizDetails.openDate).toLocaleDateString()}</p>
+        <p>Close Date: {new Date(quizDetails.endDate).toLocaleDateString()}</p>
+        <p>Category: {quizDetails.category}</p>
+      </div>
+
       <div className="quiz-question-header">
-        <span>Edit</span>
         <span>Question Details</span>
       </div>
       {questions.map((questionData, index) => (
         <QuestionListOfSpecificQuiz
           key={index}
+          index={index}
           questionData={questionData}
-          onEdit={handleEdit}
         />
       ))}
+      <button
+        className="btn btn-primary"
+        onClick={() => {
+          navigate(`/create-quiz`);
+        }}
+      >
+        Crete new Quiz
+      </button>
     </div>
   );
 };

@@ -32,7 +32,7 @@ const Login = () => {
       if (response.data.success) {
         toast.success("Login successful!");
         localStorage.setItem("auth", JSON.stringify(response?.data.data));
-        return navigate("/dashboard");
+        return navigate("/create-quiz");
       }
     } catch (error) {
       console.error("Login error:", error);

@@ -57,15 +57,17 @@ const CreateQuiz = () => {
 
   const handleSubmit = async (values, { resetForm }) => {
     try {
+      console.log("values", values);
       const response = await axiosInstance.post("/question", {
         ...values,
         _id: questionId,
         quizId,
+        options: values.options.split(","),
       });
       if (response.data.success) {
         setQuestionData(response?.data?.question);
         toast.success("Question created successfully");
-        resetForm();
+        // resetForm();
         // handleNextClick(resetForm);
       }
     } catch (error) {
@@ -75,7 +77,7 @@ const CreateQuiz = () => {
 
   const handleNextClick = (resetForm) => {
     resetForm(); // Resets the form to initial values
-    navigate(`/${quizId}/question/${ObjectId()}`);
+    navigate(`/detail/${quizId}`);
   };
 
   const handleBackClick = (resetForm) => {
