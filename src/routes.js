@@ -11,6 +11,7 @@ import CreateQuestions from "./createQuestions"; // Assuming you have the Login 
 import CreateQuiz from "./createQuiz"; // Assuming you have the Login component
 import Quizlist from "./quizlist"; // Assuming you have the Login component
 import ListQuestions from "./listQuestions"; // Assuming you have the Login component
+import ShowQuestionStudents from "./showQuestionStudents"; // Assuming you have the Login component
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
         <Route path="/:quizId/question" element={<CreateQuestions />} />
         <Route path="/detail/:quizId" element={<ListQuestions />} />
         <Route path="/quiz-list" element={<Quizlist />} />
+        <Route path="/take-quiz/:quizId" element={<ShowQuestionStudents />} />
 
         {/* <Route path="/quiz/:quizId" element={<Quizlist />} /> */}
       </Routes>

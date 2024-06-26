@@ -1,95 +1,80 @@
 import React, { useState, useEffect } from "react";
-import axiosInstance from "../axiosInstance"; // Import your axios instance
-import { useParams } from "react-router-dom";
-import dayjs from "dayjs"; // Import dayjs
+import axiosInstance from "../axiosInstance";
+import "./index.css";
+import { useNavigate } from "react-router-dom";
 
-const QuestionsList = () => {
-  const [questions, setQuestions] = useState([]);
-  const [quizDetails, setQuizDetails] = useState({});
-  const { quizId } = useParams();
+const CombinedComponent = () => {
+  const [quizzes, setQuizzes] = useState([]);
+  const navigate = useNavigate();
 
-  // Effect to fetch questions and quiz details on component mount
-  useEffect(() => {
-    const fetchQuestions = async () => {
-      try {
-        const response = await axiosInstance.get(`/question/${quizId}`); // Assuming this endpoint returns all details
-        setQuestions(response?.data?.questions);
-        if (response?.data?.questions[0]) {
-          const quizInfo = response?.data?.questions[0]?.quizId; // Assuming quiz details are nested here
-          setQuizDetails({
-            ...quizInfo,
-            startDate: quizInfo.openDate
-              ? dayjs(quizInfo.openDate).format("DD/MM/YYYY")
-              : "",
-            endDate: quizInfo.endDate
-              ? dayjs(quizInfo.endDate).format("DD/MM/YYYY")
-              : "",
-          });
-        }
-      } catch (error) {
-        console.error("Failed to fetch questions", error);
+  const handleData = async () => {
+    try {
+      const response = await axiosInstance.get("/quiz");
+      console.log("response", response);
+      if (response.data.success) {
+        setQuizzes(response.data.data);
       }
-    };
+    } catch (error) {
+      console.error("Error fetching data:", error?.response?.data);
+    }
+  };
 
-    fetchQuestions();
-  }, [quizId]); // Include quizId in the dependency array to refetch if it changes
+  useEffect(() => {
+    handleData();
+  }, []);
 
-  const styles = {
-    listContainer: {
-      margin: "20px auto",
-      padding: "20px",
-      maxWidth: "600px",
-      backgroundColor: "#f0f0f0",
-      borderRadius: "8px",
-      boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-    },
-    listItem: {
-      padding: "10px",
-      borderBottom: "1px solid #ccc",
-      marginBottom: "10px",
-    },
-    questionHeader: {
-      fontSize: "18px",
-      color: "#333",
-    },
-    detail: {
-      fontSize: "16px",
-      color: "#666",
-      marginBottom: "5px",
-    },
-    quizDetail: {
-      marginBottom: "20px",
-      fontSize: "16px",
-      color: "#333",
-    },
+  const isQuizActive = (openDate, endDate) => {
+    const currentDate = new Date();
+    return (
+      currentDate >= new Date(openDate) && currentDate <= new Date(endDate)
+    );
   };
 
   return (
-    <div style={styles.listContainer}>
-      <h1>Quiz Details</h1>
-      <div style={styles.quizDetail}>
-        <p>Name: {quizDetails?.quizName}</p>
-        <p>Duration: {quizDetails?.duration} minutes</p>
-        <p>Start Date: {quizDetails?.startDate}</p>
-        <p>End Date: {quizDetails?.endDate}</p>
+    <div className="full-container">
+      <div className="header">
+        <h1 className="heading">Quiz List</h1>
+        <button
+          className="submit-btn"
+          onClick={() => {
+            navigate("/create-quiz");
+          }}
+        >
+          Create New Quiz
+        </button>
       </div>
-      <h2>Questions List</h2>
-      <ul>
-        {questions.map((question, index) => (
-          <li key={index} style={styles.listItem}>
-            <h3 style={styles.questionHeader}>
-              {question.questionType}: {question.question}
-            </h3>
-            <p style={styles.detail}>Options: {question.options.join(", ")}</p>
-            <p style={styles.detail}>
-              Correct Answer: {question.correctAnswer}
+      <div className="quiz-list">
+        {quizzes.map((quiz) => (
+          <div key={quiz._id} className="quiz-card">
+            <h2>{quiz.quizName}</h2>
+            <p>
+              <strong>Duration:</strong> {quiz.duration} hours
             </p>
-            <p style={styles.detail}>Difficulty: {question.difficulty}</p>
-          </li>
+            <p>
+              <strong>Category:</strong> {quiz.category}
+            </p>
+            <p>
+              <strong>Open Date:</strong>{" "}
+              {new Date(quiz.openDate).toLocaleDateString()}
+            </p>
+            <p>
+              <strong>End Date:</strong>{" "}
+              {new Date(quiz.endDate).toLocaleDateString()}
+            </p>
+            <button
+              className="take-quiz-btn"
+              disabled={!isQuizActive(quiz.openDate, quiz.endDate)}
+              onClick={() => navigate(`/take-quiz/${quiz._id}`)}
+            >
+              {isQuizActive(quiz.openDate, quiz.endDate)
+                ? "Take Quiz"
+                : "Quiz Not Available"}
+            </button>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };
 
-export default QuestionsList;
+export default CombinedComponent;
