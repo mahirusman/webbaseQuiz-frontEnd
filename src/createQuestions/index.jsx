@@ -85,11 +85,6 @@ const CreateQuiz = () => {
     resetForm();
   };
 
-  // const handleNextClikc = () => {
-
-  //   return navigate(`/${questionId}/question/${ObjectId()}`);
-  // };
-
   return (
     <>
       <Header />
@@ -207,14 +202,17 @@ const CreateQuiz = () => {
                   >
                     Save Question
                   </button>
-                  <button
-                    type="button"
-                    disabled={isSubmitting}
-                    onClick={() => handleNextClick(resetForm)}
-                    className="btn btn-secondary"
-                  >
-                    Previow
-                  </button>
+                  {questionData?.questionCount ? (
+                    <button
+                      type="button"
+                      disabled={isSubmitting}
+                      onClick={() => handleNextClick(resetForm)}
+                      className="btn btn-secondary"
+                    >
+                      Show List of Questions
+                    </button>
+                  ) : null}
+
                   <button
                     type="button"
                     disabled={isSubmitting}

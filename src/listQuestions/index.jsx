@@ -51,48 +51,43 @@ const Quiz = () => {
     fetchQuestions();
   }, [quizId]);
 
-  console.log("quizDetails", questions);
   return (
     <>
       <Header />
 
-      {questions.length > 0 ? (
-        <div className="quiz-container">
-          <div className="quiz-details">
-            <h1>Quiz Name: {quizDetails.quizName}</h1>
-            <p>Duration: {quizDetails.duration} minutes</p>
-            <p>
-              Open Date: {new Date(quizDetails.openDate).toLocaleDateString()}
-            </p>
-            <p>
-              Close Date: {new Date(quizDetails.endDate).toLocaleDateString()}
-            </p>
-            <p>Category: {quizDetails.category}</p>
-          </div>
-
-          <div className="quiz-question-header">
-            <span>Question Details</span>
-          </div>
-          {questions.map((questionData, index) => (
-            <QuestionListOfSpecificQuiz
-              key={index}
-              index={index}
-              questionData={questionData}
-            />
-          ))}
-
-          <button
-            className="btn btn-primary"
-            onClick={() => {
-              navigate(`/${quizDetails?._id}/question`);
-            }}
-          >
-            Back
-          </button>
+      <div className="quiz-container">
+        <div className="quiz-details">
+          <h1>Quiz Name: {quizDetails.quizName}</h1>
+          <p>Duration: {quizDetails.duration} minutes</p>
+          <p>
+            Open Date: {new Date(quizDetails.openDate).toLocaleDateString()}
+          </p>
+          <p>
+            Close Date: {new Date(quizDetails.endDate).toLocaleDateString()}
+          </p>
+          <p>Category: {quizDetails.category}</p>
         </div>
-      ) : (
-        <div>No Question Created</div>
-      )}
+
+        <div className="quiz-question-header">
+          <span>Question Details</span>
+        </div>
+        {questions.map((questionData, index) => (
+          <QuestionListOfSpecificQuiz
+            key={index}
+            index={index}
+            questionData={questionData}
+          />
+        ))}
+
+        <button
+          className="btn btn-primary"
+          onClick={() => {
+            navigate(`/${quizDetails?._id}/question`);
+          }}
+        >
+          Back
+        </button>
+      </div>
     </>
   );
 };

@@ -12,7 +12,7 @@ const Header = () => {
 
   return (
     <header className="header">
-      <div className="logo">MyApp</div>
+      <div className="logo">Web Base Quiz Application</div>
       <nav className="nav">
         <Link to="/quiz-list" className="nav-link">
           List All Quizzes
