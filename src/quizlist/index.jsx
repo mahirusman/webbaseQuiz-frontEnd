@@ -2,10 +2,14 @@ import React, { useState, useEffect } from "react";
 import axiosInstance from "../axiosInstance";
 import "./index.css";
 import { useNavigate } from "react-router-dom";
+import useLocalStorage from "../hooks/localStorage";
+import Header from "../header";
 
 const CombinedComponent = () => {
   const [quizzes, setQuizzes] = useState([]);
   const navigate = useNavigate();
+  const [value, setValue] = useLocalStorage();
+  console.log("value", value);
 
   const handleData = async () => {
     try {
@@ -31,49 +35,61 @@ const CombinedComponent = () => {
   };
 
   return (
-    <div className="full-container">
-      <div className="header">
+    <>
+      <Header />
+      <div className="full-container">
+        {/* <div className="header"> */}
         <h1 className="heading">Quiz List</h1>
-        <button
-          className="submit-btn"
-          onClick={() => {
-            navigate("/create-quiz");
-          }}
-        >
-          Create New Quiz
-        </button>
+        {/* <button
+            className="submit-btn"
+            onClick={() => {
+              navigate("/create-quiz");
+            }}
+          >
+            Create New Quiz
+          </button> */}
+        {/* </div> */}
+        <div className="quiz-list">
+          {quizzes.map((quiz) => (
+            <div key={quiz._id} className="quiz-card">
+              <h2>{quiz.quizName}</h2>
+              <p>
+                <strong>Duration:</strong> {quiz.duration} hours
+              </p>
+              <p>
+                <strong>Category:</strong> {quiz.category}
+              </p>
+              <p>
+                <strong>Open Date:</strong>{" "}
+                {new Date(quiz.openDate).toLocaleDateString()}
+              </p>
+              <p>
+                <strong>End Date:</strong>{" "}
+                {new Date(quiz.endDate).toLocaleDateString()}
+              </p>
+              {value.role == "student" ? (
+                <button
+                  disabled={!isQuizActive(quiz.openDate, quiz.endDate)}
+                  className="take-quiz-btn"
+                  onClick={() => navigate(`/take-quiz/${quiz._id}`)}
+                >
+                  {isQuizActive(quiz.openDate, quiz.endDate)
+                    ? "Take Quiz"
+                    : "Quiz Not Available"}
+                </button>
+              ) : (
+                <button
+                  className="take-quiz-btn"
+                  onClick={() => navigate(`/${quiz?._id}/question/`)}
+                >
+                  Add Questions
+                </button>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
-      <div className="quiz-list">
-        {quizzes.map((quiz) => (
-          <div key={quiz._id} className="quiz-card">
-            <h2>{quiz.quizName}</h2>
-            <p>
-              <strong>Duration:</strong> {quiz.duration} hours
-            </p>
-            <p>
-              <strong>Category:</strong> {quiz.category}
-            </p>
-            <p>
-              <strong>Open Date:</strong>{" "}
-              {new Date(quiz.openDate).toLocaleDateString()}
-            </p>
-            <p>
-              <strong>End Date:</strong>{" "}
-              {new Date(quiz.endDate).toLocaleDateString()}
-            </p>
-            <button
-              className="take-quiz-btn"
-              disabled={!isQuizActive(quiz.openDate, quiz.endDate)}
-              onClick={() => navigate(`/take-quiz/${quiz._id}`)}
-            >
-              {isQuizActive(quiz.openDate, quiz.endDate)
-                ? "Take Quiz"
-                : "Quiz Not Available"}
-            </button>
-          </div>
-        ))}
-      </div>
-    </div>
+    </>
   );
 };
 

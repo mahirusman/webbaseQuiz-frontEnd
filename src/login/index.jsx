@@ -32,6 +32,9 @@ const Login = () => {
       if (response.data.success) {
         toast.success("Login successful!");
         localStorage.setItem("auth", JSON.stringify(response?.data.data));
+        // if(response?.data.data.role=="student"){
+
+        // }
         return navigate("/quiz-list");
       }
     } catch (error) {
