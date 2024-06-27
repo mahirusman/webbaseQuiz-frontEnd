@@ -9,11 +9,12 @@ const CombinedComponent = () => {
   const [quizzes, setQuizzes] = useState([]);
   const navigate = useNavigate();
   const [value, setValue] = useLocalStorage();
-  console.log("value", value);
 
   const handleData = async () => {
     try {
-      const response = await axiosInstance.get("/quiz");
+      const response = await axiosInstance.post("/quiz/list", {
+        createdBy: value?._id,
+      });
       console.log("response", response);
       if (response.data.success) {
         setQuizzes(response.data.data);

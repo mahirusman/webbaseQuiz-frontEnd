@@ -5,15 +5,16 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import Signup from "./signup/index"; // Assuming you have the Signup component
-import Login from "./login/index"; // Assuming you have the Login component
-import CreateQuestions from "./createQuestions"; // Assuming you have the Login component
-import CreateQuiz from "./createQuiz"; // Assuming you have the Login component
-import Quizlist from "./quizlist"; // Assuming you have the Login component
-import ListQuestions from "./listQuestions"; // Assuming you have the Login component
-import ShowQuestionStudents from "./showQuestionStudents"; // Assuming you have the Login component
-import AdminList from "./admin/listUsers"; // Assuming you have the Login component
-import Instructors from "./admin/instructors"; // Assuming you have the Login component
+import Signup from "./signup/index";
+import Login from "./login/index";
+import CreateQuestions from "./createQuestions";
+import CreateQuiz from "./createQuiz";
+import Quizlist from "./quizlist";
+import ListQuestions from "./listQuestions";
+import ShowQuestionStudents from "./showQuestionStudents";
+import AdminList from "./admin/listUsers";
+import Instructors from "./admin/instructors";
+import QuizList from "./admin/quizList";
 
 const App = () => {
   return (
@@ -29,6 +30,7 @@ const App = () => {
         <Route path="/take-quiz/:quizId" element={<ShowQuestionStudents />} />
         <Route path="/admin/user-list" element={<AdminList />} />
         <Route path="/admin/instructor-list" element={<Instructors />} />
+        <Route path="/admin/quiz-list" element={<QuizList />} />
 
         {/* <Route path="/quiz/:quizId" element={<Quizlist />} /> */}
       </Routes>

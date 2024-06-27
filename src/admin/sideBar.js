@@ -23,7 +23,7 @@ function SideBar() {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/quiz" activeClassName="active">
+            <NavLink to="/admin/quiz-list" activeClassName="active">
               Quiz
             </NavLink>
           </li>
