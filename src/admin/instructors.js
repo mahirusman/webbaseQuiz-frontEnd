@@ -15,7 +15,7 @@ const AdminDashboard = () => {
   const getUsersList = async () => {
     try {
       const response = await axiosInstance.get(
-        "/auth/userList?role=student",
+        "/auth/userList?role=instructor",
         {}
       );
       if (response.data.success) {

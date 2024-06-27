@@ -1,11 +1,13 @@
 .admin-dashboard {
   display: flex;
+  font-family: Arial, sans-serif;
 }
 
 .sidebar {
   width: 200px;
   background-color: #f8f9fa;
   padding: 1rem;
+  border-right: 1px solid #ddd;
 }
 
 .sidebar nav ul {
@@ -20,18 +22,45 @@
 .sidebar nav ul li a {
   text-decoration: none;
   color: #333;
+  padding: 0.5rem;
+  display: block;
+  border-radius: 4px;
 }
 
 .sidebar nav ul li a.active {
   background-color: #4caf50;
   color: white;
-  padding: 0.5rem;
-  border-radius: 4px;
 }
 
 .main-content {
   flex: 1;
   padding: 1rem;
+  background-color: #fff;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.header h1 {
+  margin: 0;
+}
+
+.logout-button {
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.logout-button:hover {
+  background-color: #555;
 }
 
 .main-content table {
@@ -50,4 +79,38 @@
 .main-content td {
   padding: 0.5rem;
   text-align: left;
+}
+
+.main-content th {
+  background-color: #f2f2f2;
+}
+
+@media (max-width: 768px) {
+  .admin-dashboard {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #ddd;
+  }
+}
+.sidebar nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar nav ul li {
+  margin: 10px 0;
+}
+
+.sidebar nav ul li a {
+  text-decoration: none;
+  color: #000;
+}
+
+.sidebar nav ul li a.active {
+  font-weight: bold;
+  color: #007bff; /* Or any color you want for the active link */
 }
