@@ -1,0 +1,62 @@
+/* QuizResults.css */
+.quiz-results {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  font-size: 28px;
+  margin-bottom: 5px;
+}
+
+.header h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.summary {
+  margin-bottom: 20px;
+}
+
+.summary p {
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th,
+td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+th {
+  background-color: #f1f1f1;
+}
+
+.correct {
+  color: green;
+}
+
+.incorrect {
+  color: red;
+}

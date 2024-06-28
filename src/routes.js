@@ -15,6 +15,7 @@ import ShowQuestionStudents from "./showQuestionStudents";
 import AdminList from "./admin/listUsers";
 import Instructors from "./admin/instructors";
 import QuizList from "./admin/quizList";
+import QuizSummary from "./QuizSummary/";
 
 const App = () => {
   return (
@@ -31,6 +32,8 @@ const App = () => {
         <Route path="/admin/user-list" element={<AdminList />} />
         <Route path="/admin/instructor-list" element={<Instructors />} />
         <Route path="/admin/quiz-list" element={<QuizList />} />
+        <Route path="/admin/quiz-list" element={<QuizList />} />
+        <Route path="/quizSummary/:attemptId" element={<QuizSummary />} />
 
         {/* <Route path="/quiz/:quizId" element={<Quizlist />} /> */}
       </Routes>
