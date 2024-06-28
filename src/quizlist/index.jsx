@@ -12,10 +12,7 @@ const CombinedComponent = () => {
 
   const handleData = async () => {
     try {
-      const response = await axiosInstance.post("/quiz/list", {
-        createdBy: value?._id,
-      });
-      console.log("response", response);
+      const response = await axiosInstance.post("/quiz/list", {});
       if (response.data.success) {
         setQuizzes(response.data.data);
       }

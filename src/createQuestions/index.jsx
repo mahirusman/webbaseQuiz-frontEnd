@@ -5,7 +5,6 @@ import axiosInstance from "../axiosInstance";
 import { toast } from "react-toastify";
 import "./index.css";
 import { useNavigate, useParams } from "react-router-dom";
-import { ObjectId } from "../utils";
 import Header from "../header";
 
 // Define the enum for question types
@@ -19,7 +18,6 @@ const CreateQuiz = () => {
   const navigate = useNavigate();
   const { questionId, quizId } = useParams();
   const [questionData, setQuestionData] = useState();
-  console.log("questionData", questionData, "questionId", quizId);
 
   useEffect(() => {
     if (quizId) {
@@ -58,7 +56,6 @@ const CreateQuiz = () => {
 
   const handleSubmit = async (values, { resetForm }) => {
     try {
-      console.log("values", values);
       const response = await axiosInstance.post("/question", {
         ...values,
         _id: questionId,
@@ -91,7 +88,7 @@ const CreateQuiz = () => {
 
       <div className="container">
         <div className="create-quiz">
-          <div className="header">
+          <div className="">
             <h1>Create Questions</h1>
             <p>
               Total Questions Created:{" "}
