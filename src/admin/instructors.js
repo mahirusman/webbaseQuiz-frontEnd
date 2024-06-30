@@ -5,6 +5,7 @@ import SideBar from "./sideBar";
 import { useNavigate } from "react-router-dom";
 import Switch from "react-switch";
 import { toast } from "react-toastify";
+import AdminHeader from "./adminHeader";
 
 import "./index.css";
 
@@ -59,56 +60,53 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div className="admin-dashboard">
-      <SideBar />
-      <main className="main-content">
-        <header className="header">
-          <h1>Admin Dashboard</h1>
-          <button className="logout-button" onClick={handleLogout}>
-            Logout
-          </button>
-        </header>
-        <table>
-          <thead>
-            <tr>
-              <th>Sr</th>
+    <>
+      <AdminHeader />
+      <div style={{ display: "flex" }}>
+        <SideBar />
+        <main className="main-content">
+          <table>
+            <thead>
+              <tr>
+                <th>Sr</th>
 
-              <th>VU ID</th>
-              <th>Email</th>
-              <th>Full Name</th>
-              <th>Role</th>
-              <th>Register at</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {userList.map((student, index) => (
-              <tr key={student.vuId}>
-                <td>{index + 1}</td>
-
-                <td>{student.vuId}</td>
-                <td>{student.email}</td>
-                <td>{student.fullName}</td>
-                <td>{student.role}</td>
-                <td>{formatDate(student.createdAt)}</td>
-                <td>
-                  <Switch
-                    onChange={() =>
-                      toggleUserBlockStatus(student?._id, student.isBlocked)
-                    }
-                    checked={!student.isBlocked}
-                    offColor="#ff0000"
-                    onColor="#00ff00"
-                    uncheckedIcon={<div style={{ padding: 2 }}>Blocked</div>}
-                    checkedIcon={<div style={{ padding: 2 }}>Active</div>}
-                  />
-                </td>
+                <th>VU ID</th>
+                <th>Email</th>
+                <th>Full Name</th>
+                <th>Role</th>
+                <th>Register at</th>
+                <th>Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </main>
-    </div>
+            </thead>
+            <tbody>
+              {userList.map((student, index) => (
+                <tr key={student.vuId}>
+                  <td>{index + 1}</td>
+
+                  <td>{student.vuId}</td>
+                  <td>{student.email}</td>
+                  <td>{student.fullName}</td>
+                  <td>{student.role}</td>
+                  <td>{formatDate(student.createdAt)}</td>
+                  <td>
+                    <Switch
+                      onChange={() =>
+                        toggleUserBlockStatus(student?._id, student.isBlocked)
+                      }
+                      checked={!student.isBlocked}
+                      offColor="#ff0000"
+                      onColor="#00ff00"
+                      uncheckedIcon={<div style={{ padding: 2 }}>Blocked</div>}
+                      checkedIcon={<div style={{ padding: 2 }}>Active</div>}
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </main>
+      </div>
+    </>
   );
 };
 

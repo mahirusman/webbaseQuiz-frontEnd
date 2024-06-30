@@ -36,7 +36,7 @@ const QuizResults = () => {
 
   return (
     <div className="quiz-results">
-      <div className="header">
+      <div className="">
         <h1>Assessment Quiz</h1>
         <h2>Post-Assessment</h2>
       </div>

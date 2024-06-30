@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import axiosInstance from "../axiosInstance";
 import useLocalStorage from "../hooks/localStorage";
 import { useNavigate } from "react-router-dom";
-
 import "./index.css";
 
 const QuizAttempt = () => {
@@ -18,6 +17,7 @@ const QuizAttempt = () => {
   const [value, setValue] = useLocalStorage();
   const currentQuestion = questions[currentQuestionIndex];
   const navigate = useNavigate();
+
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
@@ -57,6 +57,7 @@ const QuizAttempt = () => {
     const response = await axiosInstance.post("/quizStats/quiz-attempt", {
       student: value?._id,
       quiz: quizId,
+      totalQUestions: questions?.length,
       question: {
         questionId: currentQuestion?._id,
         selectedOption: selectedOption,

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import axiosInstance from "../axiosInstance";
 import SideBar from "./sideBar";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import AdminHeader from "./adminHeader";
 
 import "./index.css";
@@ -11,9 +10,11 @@ const AdminDashboard = () => {
   const [quizList, setQuizList] = useState([]);
   const navigate = useNavigate();
 
+  console.log("quizList", quizList);
+
   const getQuizList = async () => {
     try {
-      const response = await axiosInstance.post("/quiz/list", {});
+      const response = await axiosInstance.post("/quizStats/top-students", {});
       if (response.data.success) {
         setQuizList(response.data.data);
       }
@@ -26,32 +27,9 @@ const AdminDashboard = () => {
     getQuizList();
   }, []);
 
-  const handleLogout = () => {
-    localStorage.clear();
-    navigate("/login");
-  };
-
   const formatDate = (dateString) => {
     const options = { year: "numeric", month: "long", day: "numeric" };
     return new Date(dateString).toLocaleDateString(undefined, options);
-  };
-
-  const toggleUserBlockStatus = async (userId, isBlocked) => {
-    try {
-      const url = `/auth/${userId}/block`;
-      const response = await axiosInstance.put(url);
-      if (response.data.success) {
-        toast.success(
-          `User ${isBlocked ? "unblocked" : "blocked"} successfully`
-        );
-        getQuizList(); // Refresh the user list
-      }
-    } catch (error) {
-      console.error(
-        `Error ${isBlocked ? "unblocking" : "blocking"} user:`,
-        error?.response?.data
-      );
-    }
   };
 
   const handleViewDetailClick = (quiz) => {
@@ -68,37 +46,24 @@ const AdminDashboard = () => {
             <thead>
               <tr>
                 <th>Sr</th>
-                <th>Quiz Name</th>
-                <th>Duration</th>
-                <th>Open Date</th>
-                <th>End Date</th>
-                <th>Category</th>
-                <th>Created By</th>
-                <th>Created At</th>
-                <th>Action</th>
+                <th>Student VU ID</th>
+                <th>Student Name</th>
+                <th>Student Email</th>
+                <th>Total Scors</th>
+
+                <th>Register Date</th>
               </tr>
             </thead>
             <tbody>
               {quizList.map((quiz, index) => (
                 <tr key={quiz._id}>
                   <td>{index + 1}</td>
-                  <td>{quiz.quizName}</td>
-                  <td>{quiz.duration}</td>
-                  <td>{formatDate(quiz.openDate)}</td>
-                  <td>{formatDate(quiz.endDate)}</td>
-                  <td>{quiz.category}</td>
-                  <td>{quiz.createdBy.fullName}</td>
-                  <td>{formatDate(quiz.createdAt)}</td>
-                  <td
-                    onClick={() => handleViewDetailClick(quiz)}
-                    style={{
-                      color: "blue",
-                      textDecoration: "underline",
-                      cursor: "pointer",
-                    }}
-                  >
-                    View Detail
-                  </td>
+                  <td>{quiz?.student?.vuId}</td>
+                  <td>{quiz?.student?.fullName}</td>
+                  <td>{quiz?.student?.email}</td>
+                  <td>{quiz?.totalCorrectAnswers}</td>
+
+                  <td>{formatDate(quiz?.student?.createdAt)}</td>
 
                   {/* <td>
                   <Switch

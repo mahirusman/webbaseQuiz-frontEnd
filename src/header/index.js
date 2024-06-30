@@ -21,6 +21,15 @@ const Header = () => {
             <Link to="/quiz-list" className="nav-link">
               List All Quizzes
             </Link>
+            <Link to="/quiz-history" className="nav-link">
+              Quizes history
+            </Link>
+            <Link to="/feed-back" className="nav-link">
+              Feed back
+            </Link>
+            <Link to="/top-students" className="nav-link">
+              Top Performace students
+            </Link>
           </>
         ) : (
           <>

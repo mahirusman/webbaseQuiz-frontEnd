@@ -47,7 +47,14 @@ const CombinedComponent = () => {
             Create New Quiz
           </button> */}
         {/* </div> */}
+
         <div className="quiz-list">
+          {quizzes.length == 0 ? (
+            <div>
+              <b>No Quiz Availble to attempt</b>
+            </div>
+          ) : null}
+
           {quizzes.map((quiz) => (
             <div key={quiz._id} className="quiz-card">
               <h2>{quiz.quizName}</h2>
