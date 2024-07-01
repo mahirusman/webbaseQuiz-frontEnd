@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axiosInstance from "../axiosInstance";
 import { useParams } from "react-router-dom";
+import Header from "../header";
 import "./index.css";
 
 const QuizResults = () => {
@@ -36,6 +37,7 @@ const QuizResults = () => {
 
   return (
     <div className="quiz-results">
+      <Header />
       <div className="">
         <h1>Assessment Quiz</h1>
         <h2>Post-Assessment</h2>

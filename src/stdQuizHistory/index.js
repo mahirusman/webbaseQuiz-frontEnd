@@ -27,7 +27,13 @@ const StudentHistory = () => {
   }
 
   if (!data) {
-    return <div>No data available</div>;
+    return (
+      <div className="student-history-container">
+        <Header />
+
+        <h1>No data available</h1>
+      </div>
+    );
   }
 
   return (

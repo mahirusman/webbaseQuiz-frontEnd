@@ -51,7 +51,7 @@ const CombinedComponent = () => {
         <div className="quiz-list">
           {quizzes.length == 0 ? (
             <div>
-              <b>No Quiz Availble to attempt</b>
+              <b>No Quiz Availble</b>
             </div>
           ) : null}
 
@@ -59,7 +59,7 @@ const CombinedComponent = () => {
             <div key={quiz._id} className="quiz-card">
               <h2>{quiz.quizName}</h2>
               <p>
-                <strong>Duration:</strong> {quiz.duration} hours
+                <strong>Duration:</strong> {quiz.duration} mints
               </p>
               <p>
                 <strong>Category:</strong> {quiz.category}
